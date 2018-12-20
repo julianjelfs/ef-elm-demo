@@ -1,12 +1,31 @@
 body {
-  font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande', 'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Source Sans Pro", "Trebuchet MS", "Lucida Grande",
+    "Bitstream Vera Sans", "Helvetica Neue", sans-serif;
   margin: 0;
-  text-align: center;
+  padding: 50px;
   color: #293c4b;
 }
 
 h1 {
   font-size: 30px;
+}
+
+input {
+  padding: 10px;
+  width: 300px;
+  font-size: 20px;
+}
+
+.error {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  width: 305px;
+}
+
+.weather-report {
+  padding: 10px;
 }
 
 img {
