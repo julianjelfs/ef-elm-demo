@@ -11,7 +11,7 @@ import Html.Attributes exposing (src)
 
 url : String
 url =
-    "api.openweathermap.org/data/2.5/weather?appid=" ++ apiKey ++ "&q="
+    "http://api.openweathermap.org/data/2.5/weather?appid=" ++ apiKey ++ "&q="
 
 
 apiKey : String
