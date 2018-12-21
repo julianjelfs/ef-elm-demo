@@ -1,21 +1,13 @@
 module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
+import Debug exposing (toString)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
 import Json.Decode as Decode
-
-
-
----- MODEL ----
-
-
-type alias WeatherReport =
-    { place : String
-    , weather : Maybe String
-    }
+import RemoteData exposing (..)
 
 
 weatherUrl : String
@@ -28,8 +20,18 @@ apiKey =
     "b6595c7489fa224f03df3575d4d04389"
 
 
+
+{--- MODEL ----}
+
+
+type alias WeatherReport =
+    { place : String
+    , weather : Maybe String
+    }
+
+
 type alias Model =
-    { weatherReports : List WeatherReport
+    { weatherReports : List (WebData WeatherReport)
     , searchTerm : Maybe String
     , error : Bool
     }
@@ -53,7 +55,7 @@ type Msg
     = NoOp
     | UpdateSearchTerm String
     | RequestWeatherReport
-    | ReceivedWeatherReport (Result Http.Error WeatherReport)
+    | ReceivedWeatherReport (WebData WeatherReport)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -72,17 +74,14 @@ update msg model =
                 |> Maybe.map (\s -> ( model, getWeather s ))
                 |> Maybe.withDefault ( model, Cmd.none )
 
-        ReceivedWeatherReport (Ok weatherReport) ->
+        ReceivedWeatherReport response ->
             ( { model
                 | searchTerm = Nothing
                 , error = False
-                , weatherReports = weatherReport :: model.weatherReports
+                , weatherReports = response :: model.weatherReports
               }
             , Cmd.none
             )
-
-        ReceivedWeatherReport (Err err) ->
-            ( { model | error = True }, Cmd.none )
 
 
 
@@ -114,13 +113,28 @@ view model =
         ]
 
 
-weatherReports : List WeatherReport -> List (Html Msg)
+weatherReports : List (WebData WeatherReport) -> List (Html Msg)
 weatherReports =
     List.map
         (\r ->
             div
                 [ class "weather-report" ]
-                [ text (r.place ++ ": " ++ Maybe.withDefault "Unknown" r.weather)
+                [ case r of
+                    NotAsked ->
+                        text "We haven't asked for the data yet"
+
+                    Loading ->
+                        text "Loading ..."
+
+                    Failure err ->
+                        div [ class "error" ] [ text ("Error: " ++ toString err) ]
+
+                    Success report ->
+                        text
+                            (report.place
+                                ++ ": "
+                                ++ Maybe.withDefault "Unknown" report.weather
+                            )
                 ]
         )
 
@@ -131,7 +145,7 @@ weatherReports =
 
 getWeather : String -> Cmd Msg
 getWeather s =
-    Http.send ReceivedWeatherReport <|
+    Http.send (RemoteData.fromResult >> ReceivedWeatherReport) <|
         Http.get (weatherUrl ++ s) weatherReportDecoder
 
 

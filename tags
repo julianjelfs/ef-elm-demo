@@ -3,19 +3,6 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-Model	src/Main.elm	/^type alias Model =$/;"	a
-Msg	src/Main.elm	/^type Msg$/;"	t
-WeatherReport	src/Main.elm	/^type alias WeatherReport =$/;"	a
-all	tests/Tests.elm	/^all : Test$/;"	c
-apiKey	src/Main.elm	/^apiKey : String$/;"	c
+!_TAG_PROGRAM_VERSION	5.8	//
 checkValidServiceWorker	src/registerServiceWorker.js	/^function checkValidServiceWorker(swUrl) {$/;"	f
-getWeather	src/Main.elm	/^getWeather : String -> Cmd Msg$/;"	f
-init	src/Main.elm	/^init : ( Model, Cmd Msg )$/;"	c
-main	src/Main.elm	/^main : Program () Model Msg$/;"	c
 registerValidSW	src/registerServiceWorker.js	/^function registerValidSW(swUrl) {$/;"	f
-update	src/Main.elm	/^update : Msg -> Model -> ( Model, Cmd Msg )$/;"	f
-view	src/Main.elm	/^view : Model -> Html Msg$/;"	f
-weatherReportDecoder	src/Main.elm	/^weatherReportDecoder : Decode.Decoder WeatherReport$/;"	c
-weatherReports	src/Main.elm	/^weatherReports : List WeatherReport -> List (Html Msg)$/;"	f
-weatherUrl	src/Main.elm	/^weatherUrl : String$/;"	c
