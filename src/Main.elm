@@ -91,37 +91,53 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ h1 [] [ text "Enter a city to see the weather" ]
+    div [ class "ef-surface -deep-shadow -outline" ]
+        [ h3 [ class "ef-h3" ] [ text "Enter a city to see the weather" ]
         , Html.form [ onSubmit RequestWeatherReport ]
-            [ input
-                [ autofocus True
-                , type_ "text"
-                , onInput UpdateSearchTerm
-                , value
-                    (Maybe.withDefault ""
-                        model.searchTerm
-                    )
+            [ div
+                [ class "ef-input-w u-mb-m"
+                , classList
+                    [ ( "-is-invalid", model.error )
+                    , ( "-is-valid"
+                      , not
+                            model.error
+                      )
+                    ]
                 ]
-                []
+                [ input
+                    [ class "ef-input"
+                    , placeholder "Search for the weather in a city"
+                    , autofocus True
+                    , type_ "text"
+                    , onInput UpdateSearchTerm
+                    , value
+                        (Maybe.withDefault ""
+                            model.searchTerm
+                        )
+                    ]
+                    []
+                ]
             ]
         , if model.error then
-            div [ class "error" ] [ text "Oh no something went wrong" ]
+            div [ class "ef-h5 error u-bg-notification-warning" ] [ text "Oh no something went wrong" ]
 
           else
             text ""
-        , div [] (weatherReports model.weatherReports)
+        , weatherReports model.weatherReports
         ]
 
 
-weatherReports : List WeatherReport -> List (Html Msg)
-weatherReports =
-    List.map
-        (\r ->
-            div
-                [ class "weather-report" ]
-                [ text (r.place ++ ": " ++ Maybe.withDefault "Unknown" r.weather)
-                ]
+weatherReports : List WeatherReport -> Html Msg
+weatherReports reports =
+    ul [ class "ef-list -flat" ]
+        (List.map
+            (\r ->
+                li
+                    [ class "weather-report ef-h5 u-bg-hello-pink" ]
+                    [ text (r.place ++ ": " ++ Maybe.withDefault "Unknown" r.weather)
+                    ]
+            )
+            reports
         )
 
 
