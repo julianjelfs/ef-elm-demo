@@ -1,0 +1,8 @@
+Model	src/Main.elm	/^type alias Model =$/;"	a
+Msg	src/Main.elm	/^type Msg$/;"	t
+apiKey	src/Main.elm	/^apiKey : String$/;"	c
+init	src/Main.elm	/^init : ( Model, Cmd Msg )$/;"	c
+main	src/Main.elm	/^main : Program () Model Msg$/;"	c
+update	src/Main.elm	/^update : Msg -> Model -> ( Model, Cmd Msg )$/;"	f
+url	src/Main.elm	/^url : String$/;"	c
+view	src/Main.elm	/^view : Model -> Html Msg$/;"	f

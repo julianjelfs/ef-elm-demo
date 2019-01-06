@@ -1,8 +1,9 @@
 module Main exposing (Model, Msg(..), init, main, update, view)
 
 import Browser
-import Html exposing (Html, div, h1, img, text)
-import Html.Attributes exposing (src)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 
 
 
@@ -47,9 +48,20 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Your Elm App is working!" ]
+    div [ class "ef-surface -deep-shadow -outline" ]
+        [ h3 [ class "ef-h3" ] [ text "Enter a city to see the weather" ]
+        , Html.form []
+            [ div
+                [ class "ef-input-w u-mb-m" ]
+                [ input
+                    [ class "ef-input"
+                    , placeholder "Search for the weather in a city"
+                    , autofocus True
+                    , type_ "text"
+                    ]
+                    []
+                ]
+            ]
         ]
 
 
