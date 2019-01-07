@@ -48,18 +48,20 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [ class "ef-surface -deep-shadow -outline" ]
-        [ h3 [ class "ef-h3" ] [ text "Enter a city to see the weather" ]
-        , Html.form []
-            [ div
-                [ class "ef-input-w u-mb-m" ]
-                [ input
-                    [ class "ef-input"
-                    , placeholder "Search for the weather in a city"
-                    , autofocus True
-                    , type_ "text"
+    div [ class "ef-section -s u-bg-education-paper" ]
+        [ div [ class "ef-container" ]
+            [ h3 [ class "ef-h3" ] [ text "Enter a city to see the weather" ]
+            , Html.form []
+                [ div
+                    [ class "ef-input-w u-mb-m" ]
+                    [ input
+                        [ class "ef-input"
+                        , placeholder "Search for the weather in a city"
+                        , autofocus True
+                        , type_ "text"
+                        ]
+                        []
                     ]
-                    []
                 ]
             ]
         ]
