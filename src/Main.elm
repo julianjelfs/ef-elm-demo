@@ -91,39 +91,41 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div [ class "ef-surface -deep-shadow -outline" ]
-        [ h3 [ class "ef-h3" ] [ text "Enter a city to see the weather" ]
-        , Html.form [ onSubmit RequestWeatherReport ]
-            [ div
-                [ class "ef-input-w u-mb-m"
-                , classList
-                    [ ( "-is-invalid", model.error )
-                    , ( "-is-valid"
-                      , not
-                            model.error
-                      )
+    div [ class "ef-section -s u-bg-education-paper" ]
+        [ div [ class "ef-container" ]
+            [ h3 [ class "ef-h3" ] [ text "Enter a city to see the weather" ]
+            , Html.form [ onSubmit RequestWeatherReport ]
+                [ div
+                    [ class "ef-input-w u-mb-m"
+                    , classList
+                        [ ( "-is-invalid", model.error )
+                        , ( "-is-valid"
+                          , not
+                                model.error
+                          )
+                        ]
+                    ]
+                    [ input
+                        [ class "ef-input"
+                        , placeholder "Search for the weather in a city"
+                        , autofocus True
+                        , type_ "text"
+                        , onInput UpdateSearchTerm
+                        , value
+                            (Maybe.withDefault ""
+                                model.searchTerm
+                            )
+                        ]
+                        []
                     ]
                 ]
-                [ input
-                    [ class "ef-input"
-                    , placeholder "Search for the weather in a city"
-                    , autofocus True
-                    , type_ "text"
-                    , onInput UpdateSearchTerm
-                    , value
-                        (Maybe.withDefault ""
-                            model.searchTerm
-                        )
-                    ]
-                    []
-                ]
-            ]
-        , if model.error then
-            div [ class "ef-h5 error u-bg-notification-warning" ] [ text "Oh no something went wrong" ]
+            , if model.error then
+                div [ class "ef-h5 error u-bg-notification-warning" ] [ text "Oh no something went wrong" ]
 
-          else
-            text ""
-        , weatherReports model.weatherReports
+              else
+                text ""
+            , weatherReports model.weatherReports
+            ]
         ]
 
 
